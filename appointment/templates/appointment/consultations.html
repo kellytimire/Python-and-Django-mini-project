@@ -1,0 +1,56 @@
+{% extends 'appointment/base.html' %}
+{% block title %}{{ Consultations }}{% endblock %}
+{% block consultations_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid consultations-container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation" {% if filter_by == all %}class="active"{% endif %}><a href="{% url 'appointment:consultations' 'all' %}">View All</a></li>
+                <li role="presentation" {% if filter_by == doctor %}class="active"{% endif %}><a href="{% url 'appointment:consultations' 'doctor' %}">Regular Doctor</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-12">
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Consultation_number</th>
+                                <th>Doctor</th>
+                                <th>Patient_name</th>
+                                <th>File Number</th>
+                                <th>Regular Doctor?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for consultation in consultation_list %}
+                                <tr>
+                                    <td>{{ consultation.consultation_number }}</td>
+                                    <td>{{ consultation.doctor }}</td>
+                                    <td>{{ consultation.patient_name }}</td>
+                                    <td>{{ consultation.is_doctor }}</td>
+                                    <td>{{ consultation.appointment.doctor }}</td>
+
+                                        <a href="{% url 'appointment:isdoctor' consultation.id %}" class="btn-favorite"><span class="glyphicon glyphicon-star {% if consultation.isdoctor %}active{% endif %}"></span></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

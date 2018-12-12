@@ -1,0 +1,58 @@
+{% extends 'appointment/base.html' %}
+{% block title %}Add a New Consultation{% endblock %}
+{% block appointments_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+
+    <div class="row">
+
+        <!-- Left Appointment Info -->
+        <div class="col-sm-4 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                        <a href="{% url 'appointment:detail' appointment.id %}">
+                           <img src="../../static/images/hospital.jpg" class="img-responsive">
+                        </a>
+                    <h1>{{ appointment.doctor }} <small>{{ appointment.is_doctor }}</small></h1>
+                    <h2>{{ appointment.patient_name }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Consultation Info -->
+        <div class="col-sm-8 col-md-9">
+
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation"><a href="{% url 'appointment:detail' appointment.id %}">View All</a></li>
+                <li role="presentation" class="active"><a href="{% url 'appointment:create_consultation' appointment.id %}">Add New Consultation</a></li>
+            </ul>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>Add a New Consultation</h3>
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+                    <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden" name="appointment" value="{{ appointment }}">
+                        {% include 'appointment/form_template.html' %}
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+

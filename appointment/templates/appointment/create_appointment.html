@@ -1,0 +1,45 @@
+{% extends 'appointment/base.html' %}
+{% block title %}Add a New Appointment{% endblock %}
+{% block appointments_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-sm-12 col-md-7">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>Add a New Appointments</h3>
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+                    <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% include 'appointment/form-template.html' %}
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-5">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>What is Medi-Archive?</h3>
+                    <p>Medi-Archive is an app that allows you receptionist to book an appointment for old and new patients.</p>
+                    <h3>How do I add an appointment?</h3>
+                    <p>First, create a new appointment by filling out the form on this page. Once an appointment is created you will be able to add a doctor's consultation.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+</html>
